@@ -9,6 +9,8 @@ import ChatDetailScreen from './screens/ChatDetailScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import JokeGeneratorScreen from './screens/JokeGeneratorScreen';
+import GameScreen from './screens/GameScreen';
+import LeaderboardScreen from './screens/LeaderboardScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -43,6 +45,34 @@ function ChatStack() {
   );
 }
 
+function GameStack() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: '#1a1a1a',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+          fontSize: 18,
+        },
+      }}
+    >
+      <Stack.Screen 
+        name="GameMenu" 
+        component={GameScreen}
+        options={{ title: 'Battle Royale' }}
+      />
+      <Stack.Screen 
+        name="Leaderboard" 
+        component={LeaderboardScreen}
+        options={{ title: 'Leaderboard' }}
+      />
+    </Stack.Navigator>
+  );
+}
+
 export default function App() {
   return (
     <NavigationContainer>
@@ -55,6 +85,8 @@ export default function App() {
 
             if (route.name === 'Chats') {
               iconName = focused ? 'chatbubbles' : 'chatbubbles-outline';
+            } else if (route.name === 'Games') {
+              iconName = focused ? 'game-controller' : 'game-controller-outline';
             } else if (route.name === 'Jokes') {
               iconName = focused ? 'happy' : 'happy-outline';
             } else if (route.name === 'Profile') {
@@ -78,6 +110,13 @@ export default function App() {
           component={ChatStack}
           options={{
             title: 'Chats',
+          }}
+        />
+        <Tab.Screen 
+          name="Games" 
+          component={GameStack}
+          options={{
+            title: 'Games',
           }}
         />
         <Tab.Screen 
